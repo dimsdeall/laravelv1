@@ -94,7 +94,22 @@ class ItemLokasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request;
+        if ($request->btnsubmit == 'del') {
+            return $this->destroy($id);
+        }
+        
+        $itemlokasi = Itemlokasi::find($id);
+        $itemlokasi->item_id        = $request->itemid;
+        $itemlokasi->lokasi_id      = $request->lokasiitem;
+        $itemlokasi->diskon         = $request->diskonitem;
+        $itemlokasi->hargabel       = $request->hargabelitem;
+        $itemlokasi->hargajul       = $request->hargajualitem;
+        $itemlokasi->status         = $request->statusitem;
+        $itemlokasi->save();
+
+        return back();
+        
     }
 
     /**
@@ -105,7 +120,9 @@ class ItemLokasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $itemlokasi = Itemlokasi::find($id);
+        $itemlokasi->delete();
+        return back();
     }
 
     public function getdata($iditem)
@@ -116,12 +133,18 @@ class ItemLokasiController extends Controller
         return Datatables::of($itemlokasi)
         ->addColumn('action', function ($itemlokasi) {
             return "
-             <button data-toggle='modal' class='btn btn-info btn-sm' id='edititem'
+             <button data-toggle='modal' class='btn btn-info btn-sm' id='edititem'  data-target='#modal-lokasi-item-edit'
                 data-id='".$itemlokasi->id."'
+                data-item_id='".$itemlokasi->item_id."'
+                data-lokasi='".$itemlokasi->lokasi_id."'
+                data-diskon='".$itemlokasi->diskon."'
+                data-hargajul='".$itemlokasi->hargajul."'
+                data-hargabel='".$itemlokasi->hargabel."'
+                data-status='".$itemlokasi->status."'
              >Edit</button>";
         })
         ->editColumn('lokasi_id', function($itemlokasi) {
-            return $itemlokasi->lokasi->nama;
+            return $itemlokasi->lokasi->keterangan;
         })
         ->editColumn('status', function($itemlokasi) {
             if ($itemlokasi->status == 1) {

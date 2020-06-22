@@ -25,6 +25,16 @@ $(document).ready(function() {
         ]
     }); 
 } );
+
+$(document).on('click', '#edititem', function(){   
+    $('#lokasiitemedit').val($(this).data('lokasi'));
+    $('#diskonitemedit').val($(this).data('diskon'));
+    $('#hargabelitemedit').val($(this).data('hargabel'));
+    $('#hargajualitemedit').val($(this).data('hargajul'));
+    $('#statusitemedit').val($(this).data('status'));
+    $('#formmodalitemedit').attr('action', '/itemlokasi/'+$(this).data('id') );
+});
+
 </script>
 
 @section('content')
@@ -165,18 +175,18 @@ $(document).ready(function() {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('itemlokasi.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('itemlokasi.store') }}" id="formmodalitem" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="row form-inline">
+                    <div class="row">
                     {{ csrf_field() }}
                     <div class="card-body">
                         <input type="hidden" name="itemid" value="{{ $dataitem->id }}">
-                        <div class="form-group bg-primary">
+                        <div class="form-group">
                             <label>Lokasi :</label>
                             <div class="input-group">
                                 <select id="lokasiitem" name="lokasiitem" class="form-control">
                                     @foreach($lokasi as $value)
-                                        <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                        <option value="{{ $value->id }}">{{ $value->keterangan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -217,6 +227,78 @@ $(document).ready(function() {
                 </div>
                 <div class="modal-footer justify-content">
                     <button type="submit" class="btn btn-primary ">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-lokasi-item-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Item Lokasi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('itemlokasi.store') }}" id="formmodalitemedit" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                    {{ csrf_field() }}
+                    {{ method_field('put') }}
+                    <div class="card-body">
+                        <input type="hidden" name="itemid" value="{{ $dataitem->id }}">
+                        <div class="form-group">
+                            <label>Lokasi :</label>
+                            <div class="input-group">
+                                <select id="lokasiitemedit" name="lokasiitem" class="form-control">
+                                    @foreach($lokasi as $value)
+                                        <option value="{{ $value->id }}">{{ $value->keterangan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Diskon :</label>
+                            <div class="input-group">
+                                <input type="text" id="diskonitemedit" name="diskonitem" class="form-control text-right" autocomplete required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Harga Beli :</label>
+                            <div class="input-group">
+                                <input type="text" id="hargabelitemedit" name="hargabelitem" class="form-control text-right" autocomplete required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Harga Jual :</label>
+                            <div class="input-group">
+                                <input type="text" id="hargajualitemedit" name="hargajualitem" class="form-control text-right" autocomplete required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status :</label>
+                            <div class="input-group">
+                                <select id="statusitemedit" name="statusitem" class="form-control">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content">
+                    <button type="submit" name="btnsubmit" value="del" class="btn btn-danger ">Delete</button>
+                    <button type="submit" name="btnsubmit" value="sav" class="btn btn-primary ">Save changes</button>
                 </div>
             </form>
         </div>

@@ -112,7 +112,7 @@ class KategoriController extends Controller
         ->addColumn('action', function ($kategori) {
             // $route = "{{ route(lokasi.update, ".$lokasi->id.") }}";
             return "
-             <button data-toggle='modal' class='btn btn-info btn-sm' id='editkategori' data-toggle='modal' data-target='#modal-kategori'
+             <button data-toggle='modal' class='btn btn-info btn-sm' id='editkategori' data-target='#modal-kategori'
                 data-id='".$kategori->id."'
                 data-keterangan='".$kategori->keterangan."'
              >Edit</button>
