@@ -45,6 +45,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('customer.index')}}" class="nav-link {{ setActive(['customer*']) }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('item.index')}}" class="nav-link {{ setActive(['item*']) }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Item</p>

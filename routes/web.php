@@ -31,3 +31,6 @@ Route::resource('/lokasi', 'LokasiController');
 
 Route::get('/kategori/getdata', 'KategoriController@getdata');
 Route::resource('/kategori', 'KategoriController');
+
+Route::get('/customer/getdata', 'CustomerController@getdata');
+Route::resource('/customer', 'CustomerController');
